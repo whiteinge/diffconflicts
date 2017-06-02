@@ -1,0 +1,12 @@
+*diffconflicts.txt*	Two-way diff each side of a file with Git conflict markers
+
+If you make typing mistakes, this plugin will have them corrected
+automatically.
+
+Commands:
+:DiffConflicts
+	Split a file containing conflict markers into two files of "left" and
+	"right" then diff them.
+
+						*diffconflicts-settings*
+This plugin doesn't have any settings.
