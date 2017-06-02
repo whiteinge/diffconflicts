@@ -30,13 +30,33 @@ function! s:diffconfl()
     silent execute "file RCONFL"
     silent execute "g/^=======$/,/^>>>>>>> /d"
     silent execute "g/^<<<<<<< /d"
-    setlocal buftype=nofile bufhidden=delete nobuflisted
+    setlocal noma ro buftype=nofile bufhidden=delete nobuflisted
     diffthis
 
     " Set up the left-hand side.
-    silent execute "normal! \<C-W>\<C-P>"
+    wincmd p
     silent execute "g/^<<<<<<< /,/^=======$/d"
     silent execute "g/^>>>>>>> /d"
+    diffthis
+endfunction
+
+function s:showHistory()
+    tabnew
+    vsplit
+    vsplit
+
+    buffer LOCAL
+    setlocal noma ro
+    diffthis
+
+    wincmd l
+    buffer BASE
+    setlocal noma ro
+    diffthis
+
+    wincmd l
+    buffer REMOTE
+    setlocal noma ro
     diffthis
 endfunction
 
@@ -52,6 +72,7 @@ function! s:checkThenDiff()
 endfunction
 
 command DiffConflicts call s:checkThenDiff()
+command DiffConflictsShowHistory call s:showHistory()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
