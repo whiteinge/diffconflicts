@@ -1,0 +1,71 @@
+# vim-diffconflicts
+
+A better Vimdiff Git mergetool
+
+## Why?
+
+<!-- YouTube embed -->
+
+### Three-Way Diffs are Hard
+
+When Git cannot automatically resolve conflicts it writes a file with conflict
+markers surrounding the conflicting areas. These conflicts must be resolved
+manually. This is often done via a three-way comparison.
+
+Vim supports three-way diffs however syntax highlighting alone is not
+sufficient to showcase the differences between that many versions. In addition,
+the default keybindings are not well suited to moving individual changes
+between that many windows.
+
+The screenshow below is an example of Vimdiff as a Git mergetool using default
+settings. None of the conflicts have an obvious resolution:
+
+![](./_utils/default-vimdiff.png)
+
+### Editing Conflict Markers is Hard
+
+When human intervention is needed it is rarely as simple as choosing the "left"
+change or the "right" change. The correct resolution often involes a mix of
+both changes. It is difficult to manually edit a file containing Git conflict
+markers because the human eye isn't well-suited to spotting subtle differences,
+particularly when the differences are not adjacent:
+
+![](./_utils/conflict-markers.png)
+
+### Two-Way Diffs are Eas(ier)
+
+A two-way diff more simply highlights just the relevant differences which makes
+the resolution more clear. The merge base and history of each version of the
+conflict is a useful reference to learn the intent of each conflicting change,
+however those are not as useful to see in the diff.
+
+Vimdiff is well-suited to two-way diffs:
+
+![](./_utils/vim-diffconflicts.png)
+
+### Conflict-Markers are a Two-Way Diff
+
+Git does an admirable job of automatically resolving conflicts. We want to
+retain all the work and resolve only the things that Git could not. That work
+is reflected in the files containing conflict markers. Rather than editing the
+conflict markers directly, it is better to perform a two-way diff on just the
+"left" and "right" sides of the conflict markers by splitting them apart.
+
+## Installation
+
+1.  Install this plugin using your favorite Vim plugin manager, or just clone
+    the repo into your packages directory (see `:help packages`).
+
+2.  Configure Git to use this plugin as a mergetool:
+
+    ```
+    git config --global merge.tool diffconflicts
+    git config --global mergetool.diffconflicts.cmd 'vim -c 'DiffConflicts' $MERGED $BASE $LOCAL $REMOTE'
+    git config --global mergetool.diffconflicts.trustExitCode true
+    git config --global mergetool.keepBackup false
+    ```
+
+3.  During a merge you can call `:DiffConflictsShowHistory` to open a new tab
+    containing the merge base and each full version of the conflict to aid in
+    understanding the history behind each change. (This is not opened by
+    default so that Vim starts more quickly.)
