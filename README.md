@@ -4,7 +4,9 @@ A better Vimdiff Git mergetool
 
 ## Why?
 
-<!-- YouTube embed -->
+Watch a demonstration version of this README on YouTube:
+
+[![diffconflicts Video Demonstration](https://img.youtube.com/vi/Pxgl3Wtf78Y/0.jpg)](https://www.youtube.com/watch?v=Pxgl3Wtf78Y)
 
 ### Three-Way Diffs are Hard
 
