@@ -2,6 +2,8 @@
 
 A better Vimdiff Git mergetool
 
+tl;dr: This converts a file containing conflict markers into a two-way diff.
+
 ## Why?
 
 Watch a demonstration version of this README on YouTube:
