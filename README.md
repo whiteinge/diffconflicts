@@ -21,7 +21,7 @@ sufficient to showcase the differences between that many versions. In addition,
 the default keybindings are not well suited to moving individual changes
 between that many windows.
 
-The screenshow below is an example of Vimdiff as a Git mergetool using default
+The screenshot below is an example of Vimdiff as a Git mergetool using default
 settings. None of the conflicts have an obvious resolution:
 
 ![](./_utils/default-vimdiff.png)
