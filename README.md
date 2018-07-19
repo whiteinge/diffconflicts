@@ -64,7 +64,7 @@ conflict markers directly, it is better to perform a two-way diff on just the
 
     ```
     git config --global merge.tool diffconflicts
-    git config --global mergetool.diffconflicts.cmd 'vim -c 'DiffConflicts' $MERGED $BASE $LOCAL $REMOTE'
+    git config --global mergetool.diffconflicts.cmd 'vim -c DiffConflicts "$MERGED" "$BASE" "$LOCAL" "$REMOTE"'
     git config --global mergetool.diffconflicts.trustExitCode true
     git config --global mergetool.keepBackup false
     ```
