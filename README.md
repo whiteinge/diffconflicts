@@ -29,7 +29,7 @@ settings. None of the conflicts have an obvious resolution:
 ### Editing Conflict Markers is Hard
 
 When human intervention is needed it is rarely as simple as choosing the "left"
-change or the "right" change. The correct resolution often involes a mix of
+change or the "right" change. The correct resolution often involves a mix of
 both changes. It is difficult to manually edit a file containing Git conflict
 markers because the human eye isn't well-suited to spotting subtle differences,
 particularly when the differences are not adjacent:
