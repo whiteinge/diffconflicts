@@ -6,7 +6,7 @@ in Vimdiff. Additional mappings can be given to see the full three-way diff.
 Configure this plugin as a mergetool in Git via the following shell commands:
 
 git config --global merge.tool diffconflicts
-git config --global mergetool.diffconflicts.cmd 'vim -c 'DiffConflicts' $MERGED $BASE $LOCAL $REMOTE'
+git config --global mergetool.diffconflicts.cmd 'vim -c DiffConflicts "$MERGED" "$BASE" "$LOCAL" "$REMOTE"'
 git config --global mergetool.diffconflicts.trustExitCode true
 git config --global mergetool.keepBackup false
 
