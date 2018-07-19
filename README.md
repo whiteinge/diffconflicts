@@ -43,7 +43,7 @@ the resolution more clear. The merge base and history of each version of the
 conflict is a useful reference to learn the intent of each conflicting change,
 however those are not as useful to see in the diff.
 
-Vimdiff is well-suited to two-way diffs:
+Vimdiff is well suited to two-way diffs:
 
 ![](./_utils/vim-diffconflicts.png)
 
