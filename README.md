@@ -51,9 +51,12 @@ Vimdiff is well-suited to two-way diffs:
 
 Git does an admirable job of automatically resolving conflicts. We want to
 retain all the work and resolve only the things that Git could not. That work
-is reflected in the files containing conflict markers. Rather than editing the
-conflict markers directly, it is better to perform a two-way diff on just the
-"left" and "right" sides of the conflict markers by splitting them apart.
+is reflected in the files containing conflict markers, but it is not reflected
+in a two-way diff between LOCAL and REMOTE.
+
+Rather than editing the conflict markers directly, it is better to perform a
+two-way diff on just the "left" and "right" sides of the conflict markers by
+splitting them apart.
 
 ## Installation
 
