@@ -44,6 +44,8 @@ function s:showHistory()
     tabnew
     vsplit
     vsplit
+    wincmd h
+    wincmd h
 
     buffer LOCAL
     setlocal noma ro
