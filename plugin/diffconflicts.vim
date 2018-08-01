@@ -73,8 +73,8 @@ function! s:checkThenDiff()
     endif
 endfunction
 
-command DiffConflicts call s:checkThenDiff()
-command DiffConflictsShowHistory call s:showHistory()
+command! DiffConflicts call s:checkThenDiff()
+command! DiffConflictsShowHistory call s:showHistory()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
