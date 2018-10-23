@@ -62,6 +62,22 @@ function s:showHistory()
     diffthis
 endfunction
 
+function! s:checkThenShowHistory()
+    let l:xs = filter(copy(getbufinfo()), {i, x ->
+            \ x.name =~# 'BASE' || x.name =~# 'LOCAL' || x.name =~# 'REMOTE'})
+
+    if (len(l:xs) < 3)
+        echohl WarningMsg
+            \ | echo "Missing one or more of BASE, LOCAL, REMOTE."
+            \   ." Was Vim invoked by a Git mergetool?"
+            \ | echohl None
+        return 1
+    else
+        call s:showHistory()
+        return 0
+    endif
+endfunction
+
 function! s:checkThenDiff()
     if (s:hasConflicts())
         echohl WarningMsg
@@ -74,7 +90,7 @@ function! s:checkThenDiff()
 endfunction
 
 command! DiffConflicts call s:checkThenDiff()
-command! DiffConflictsShowHistory call s:showHistory()
+command! DiffConflictsShowHistory call s:checkThenShowHistory()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
