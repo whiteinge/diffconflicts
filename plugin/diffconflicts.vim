@@ -68,8 +68,17 @@ function! s:showHistory()
 endfunction
 
 function! s:checkThenShowHistory()
-    let l:xs = filter(copy(getbufinfo()), {i, x ->
-            \ x.name =~# 'BASE' || x.name =~# 'LOCAL' || x.name =~# 'REMOTE'})
+    let l:xs =
+        \ filter(
+        \   map(
+        \     filter(
+        \       range(1, bufnr('$')),
+        \       'bufexists(v:val)'
+        \     ),
+        \     'bufname(v:val)'
+        \   ),
+        \   'v:val =~# "BASE" || v:val =~# "LOCAL" || v:val =~# "REMOTE"'
+        \ )
 
     if (len(l:xs) < 3)
         echohl WarningMsg
