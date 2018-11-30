@@ -28,15 +28,15 @@ function! s:diffconfl()
     silent execute "read #". l:origBuf
     1delete
     silent execute "file RCONFL"
-    silent execute "g/^=======\\r\\?$/,/^>>>>>>> /d"
-    silent execute "g/^<<<<<<< /d"
+    silent execute "g/^<<<<<<< /,/^=======\\r\\?$/d"
+    silent execute "g/^>>>>>>> /d"
     setlocal nomodifiable readonly buftype=nofile bufhidden=delete nobuflisted
     diffthis
 
     " Set up the left-hand side.
     wincmd p
-    silent execute "g/^<<<<<<< /,/^=======\\r\\?$/d"
-    silent execute "g/^>>>>>>> /d"
+    silent execute "g/^=======\\r\\?$/,/^>>>>>>> /d"
+    silent execute "g/^<<<<<<< /d"
     diffthis
 endfunction
 
