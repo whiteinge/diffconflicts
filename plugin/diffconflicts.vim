@@ -94,8 +94,9 @@ endfunction
 
 function! s:checkThenDiff()
     if (s:hasConflicts())
+        redraw
         echohl WarningMsg
-            \ | echo "Resolve conflicts leftward then save. Use :cq to abort."
+            \ | echon "Resolve conflicts leftward then save. Use :cq to abort."
             \ | echohl None
         return s:diffconfl()
     else
