@@ -77,6 +77,13 @@ splitting them apart.
     git config --global mergetool.keepBackup false
     ```
 
+    Or, if you'd prefer to always open both the diff view and the history view
+    call `DiffConflictsWithHistory` instead:
+
+    ```
+    git config --global mergetool.diffconflicts.cmd 'vim -c DiffConflictsWithHistory "$MERGED" "$BASE" "$LOCAL" "$REMOTE"'
+    ```
+
 3.  During a merge you can call `:DiffConflictsShowHistory` to open a new tab
     containing the merge BASE and full copies of the LOCAL and REMOTE versions
     of the conflicted file. This can help to understand the history or intent

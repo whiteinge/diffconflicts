@@ -11,9 +11,16 @@ git config --global mergetool.diffconflicts.trustExitCode true
 git config --global mergetool.keepBackup false
 
 Commands:
+:DiffConflicts
+	Convert a file containing Git conflict markers into a two-way diff.
+
 :DiffConflictsShowHistory
         Open a new tab containing the merge base and the local and remote
         version of the conflicted file.
+
+:DiffConflictsWithHistory
+	Call both DiffConflicts and DiffConflictsShowHistory. This is useful in
+	the Git mergetool configuration to always open the history by default.
 
 						*DiffConflicts-settings*
 This plugin doesn't have any settings.

@@ -92,26 +92,23 @@ function! s:checkThenShowHistory()
     endif
 endfunction
 
-function! s:checkThenDiff(showHist)
+function! s:checkThenDiff()
     if (s:hasConflicts())
-      call s:diffconfl()
-      if (a:showHist)
-        call s:checkThenShowHistory()
-        tabfirst
-      endif
-      redraw
-      echohl WarningMsg
-         \ | echon "Resolve conflicts leftward then save. Use :cq to abort."
-         \ | echohl None
+        redraw
+        echohl WarningMsg
+            \ | echon "Resolve conflicts leftward then save. Use :cq to abort."
+            \ | echohl None
+        return s:diffconfl()
     else
         echohl WarningMsg | echo "No conflict markers found." | echohl None
     endif
 endfunction
 
-
-command! DiffConflicts call s:checkThenDiff(0)
-command! DiffConflictsWithHistory call s:checkThenDiff(1)
+command! DiffConflicts call s:checkThenDiff()
 command! DiffConflictsShowHistory call s:checkThenShowHistory()
+command! DiffConflictsWithHistory call s:checkThenShowHistory()
+    \ | 1tabn
+    \ | call s:checkThenDiff()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
