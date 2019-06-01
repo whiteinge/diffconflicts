@@ -21,6 +21,7 @@ endfunction
 
 function! s:diffconfl()
     let l:origBuf = bufnr("%")
+    let l:origFt = &filetype
 
     " Set up the right-hand side.
     rightb vsplit
@@ -28,6 +29,7 @@ function! s:diffconfl()
     silent execute "read #". l:origBuf
     1delete
     silent execute "file RCONFL"
+    silent execute "set filetype=". l:origFt
     silent execute "g/^<<<<<<< /,/^=======\\r\\?$/d"
     silent execute "g/^>>>>>>> /d"
     setlocal nomodifiable readonly buftype=nofile bufhidden=delete nobuflisted
