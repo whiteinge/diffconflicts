@@ -22,6 +22,7 @@ endfunction
 function! s:diffconfl()
     let l:origBuf = bufnr("%")
     let l:origFt = &filetype
+    let l:conflictStyle = trim(system("git config --get merge.conflictStyle"))
 
     " Set up the right-hand side.
     rightb vsplit
@@ -37,7 +38,11 @@ function! s:diffconfl()
 
     " Set up the left-hand side.
     wincmd p
-    silent execute "g/^=======\\r\\?$/,/^>>>>>>> /d"
+    if l:conflictStyle == "diff3"
+        silent execute "g/^||||||| \\?/,/^>>>>>>> /d"
+    else
+        silent execute "g/^=======\\r\\?$/,/^>>>>>>> /d"
+    endif
     silent execute "g/^<<<<<<< /d"
     diffthis
 endfunction
