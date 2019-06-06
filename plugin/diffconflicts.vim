@@ -22,7 +22,7 @@ endfunction
 function! s:diffconfl()
     let l:origBuf = bufnr("%")
     let l:origFt = &filetype
-    let l:conflictStyle = trim(system("git config --get merge.conflictStyle"))
+    let l:conflictStyle = system("git config --get merge.conflictStyle")[:-2]
 
     " Set up the right-hand side.
     rightb vsplit
