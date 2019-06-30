@@ -10,6 +10,13 @@ let g:loaded_diffconflicts = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+" CONFIGURATION
+if !exists("g:diffconflicts_vcs")
+    " Default to git
+    let g:diffconflicts_vcs = "git"
+endif
+
+let g:loaded_diffconflicts = 1
 function! s:hasConflicts()
     try
         silent execute "%s/^<<<<<<< //gn"
@@ -22,7 +29,14 @@ endfunction
 function! s:diffconfl()
     let l:origBuf = bufnr("%")
     let l:origFt = &filetype
-    let l:conflictStyle = system("git config --get merge.conflictStyle")[:-2]
+
+    if g:diffconflicts_vcs == "git"
+        " Obtain the git setting for the conflict style.
+        let l:conflictStyle = system("git config --get merge.conflictStyle")[:-2]
+    else
+        " Assume 2way conflict style otherwise.
+        let l:conflictStyle = "diff"
+    endif
 
     " Set up the right-hand side.
     rightb vsplit
