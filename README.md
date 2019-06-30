@@ -97,20 +97,16 @@ splitting them apart.
 
 Configure Mercurial to use diffconflicts as a mergetool by adding:
 
-    ```
     [merge-tools]
     diffconflicts.executable=vim
     diffconflicts.args=-c 'let g:diffconflicts_vcs="hg"' -c DiffConflicts "$output" "$base" "$local" "$other"
     diffconflicts.premerge=keep
     diffconflicts.check=conflicts
     diffconflicts.priority=99
-    ```
 
 to your `.hgrc` file.
 Or, if you prefer to always open both the diff view and the history view use
 
-    ```
     diffconflicts.args=-c 'let g:diffconflicts_vcs="hg"' -c DiffConflictsWithHistory "$output" "$base" "$local" "$other"
-    ```
 
 as the args setting to call `DiffConflictsWithHistory`.
