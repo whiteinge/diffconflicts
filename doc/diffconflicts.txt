@@ -1,4 +1,4 @@
-*diffconflicts.txt*	A better Vimdiff Git mergetool
+*diffconflicts.txt*	A better Vimdiff Git/Mercurial mergetool
 
 This plugin converts a file containing Git conflict markers into a two-way diff
 in Vimdiff. Additional mappings can be given to see the full three-way diff.
@@ -9,6 +9,14 @@ git config --global merge.tool diffconflicts
 git config --global mergetool.diffconflicts.cmd 'vim -c DiffConflicts "$MERGED" "$BASE" "$LOCAL" "$REMOTE"'
 git config --global mergetool.diffconflicts.trustExitCode true
 git config --global mergetool.keepBackup false
+
+For Mercurial use the following settings in your .hgrc:
+
+[merge-tools]
+diffconflicts.executable=vim
+diffconflicts.args=-c 'let g:diffconflicts_vcs="hg"' -c DiffConflicts "$output" $base $local $other
+diffconflicts.premerge=keep
+diffconflicts.check=conflicts
 
 Commands:
 :DiffConflicts
@@ -23,4 +31,5 @@ Commands:
 	the Git mergetool configuration to always open the history by default.
 
 						*DiffConflicts-settings*
-This plugin doesn't have any settings.
+        Use g:diffconflicts_vcs to indicate which version control system produced
+        the conflict file (Git or Mercurial).

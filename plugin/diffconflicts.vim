@@ -10,6 +10,13 @@ let g:loaded_diffconflicts = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
+" CONFIGURATION
+if !exists("g:diffconflicts_vcs")
+    " Default to git
+    let g:diffconflicts_vcs = "git"
+endif
+
+let g:loaded_diffconflicts = 1
 function! s:hasConflicts()
     try
         silent execute "%s/^<<<<<<< //gn"
@@ -22,7 +29,14 @@ endfunction
 function! s:diffconfl()
     let l:origBuf = bufnr("%")
     let l:origFt = &filetype
-    let l:conflictStyle = system("git config --get merge.conflictStyle")[:-2]
+
+    if g:diffconflicts_vcs == "git"
+        " Obtain the git setting for the conflict style.
+        let l:conflictStyle = system("git config --get merge.conflictStyle")[:-2]
+    else
+        " Assume 2way conflict style otherwise.
+        let l:conflictStyle = "diff"
+    endif
 
     " Set up the right-hand side.
     rightb vsplit
@@ -56,17 +70,32 @@ function! s:showHistory()
     wincmd h
 
     " Populate each window.
-    buffer LOCAL
+    if g:diffconflicts_vcs == "hg"
+        buffer ~local.
+        file LOCAL
+    else
+        buffer LOCAL
+    endif
     setlocal nomodifiable readonly
     diffthis
 
     wincmd l
-    buffer BASE
+    if g:diffconflicts_vcs == "hg"
+        buffer ~base.
+        file BASE
+    else
+        buffer BASE
+    endif
     setlocal nomodifiable readonly
     diffthis
 
     wincmd l
-    buffer REMOTE
+    if g:diffconflicts_vcs == "hg"
+        buffer ~other.
+        file OTHER
+    else
+        buffer REMOTE
+    endif
     setlocal nomodifiable readonly
     diffthis
 
@@ -75,6 +104,11 @@ function! s:showHistory()
 endfunction
 
 function! s:checkThenShowHistory()
+    if g:diffconflicts_vcs == "hg"
+        let l:filecheck = 'v:val =~# "\\~base\\." || v:val =~# "\\~local\\." || v:val =~# "\\~other\\."'
+    else
+        let l:filecheck = 'v:val =~# "BASE" || v:val =~# "LOCAL" || v:val =~# "REMOTE"'
+    endif
     let l:xs =
         \ filter(
         \   map(
@@ -84,7 +118,7 @@ function! s:checkThenShowHistory()
         \     ),
         \     'bufname(v:val)'
         \   ),
-        \   'v:val =~# "BASE" || v:val =~# "LOCAL" || v:val =~# "REMOTE"'
+        \   l:filecheck
         \ )
 
     if (len(l:xs) < 3)
