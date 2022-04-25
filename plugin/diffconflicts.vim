@@ -52,7 +52,7 @@ function! s:diffconfl()
 
     " Set up the left-hand side.
     wincmd p
-    if l:conflictStyle == "diff3"
+    if l:conflictStyle ==? "diff3" || l:conflictStyle ==? "zdiff3"
         silent execute "g/^||||||| \\?/,/^>>>>>>> /d"
     else
         silent execute "g/^=======\\r\\?$/,/^>>>>>>> /d"
