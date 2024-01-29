@@ -45,20 +45,22 @@ function! s:diffconfl()
     1delete
     silent execute "file RCONFL"
     silent execute "set filetype=". l:origFt
+    diffthis " set foldmethod before editing
     silent execute "g/^<<<<<<< /,/^=======\\r\\?$/d"
     silent execute "g/^>>>>>>> /d"
     setlocal nomodifiable readonly buftype=nofile bufhidden=delete nobuflisted
-    diffthis
 
     " Set up the left-hand side.
     wincmd p
+    diffthis " set foldmethod before editing
     if l:conflictStyle ==? "diff3" || l:conflictStyle ==? "zdiff3"
         silent execute "g/^||||||| \\?/,/^>>>>>>> /d"
     else
         silent execute "g/^=======\\r\\?$/,/^>>>>>>> /d"
     endif
     silent execute "g/^<<<<<<< /d"
-    diffthis
+
+    diffupdate
 endfunction
 
 function! s:showHistory()
